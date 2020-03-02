@@ -1,3 +1,4 @@
+
 public class WordCount {
 
     private String word;
