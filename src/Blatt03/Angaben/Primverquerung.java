@@ -35,6 +35,7 @@ public class Primverquerung {
         }
         return summe;
     }
+    public void test(){}
 
     public static void main (String [] args){
         Primverquerung p = new Primverquerung();
