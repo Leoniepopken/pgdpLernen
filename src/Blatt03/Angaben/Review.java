@@ -13,6 +13,30 @@ public class Review {
    */
   private Author author;
 
+  public void setAuthor(Author author) {
+    this.author = author;
+  }
+
+  public void setReviewedDocument(Document reviewedDocument) {
+    this.reviewedDocument = reviewedDocument;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
+  public void setReleaseDate(Date releaseDate) {
+    this.releaseDate = releaseDate;
+  }
+
+  public void setRating(int rating) {
+    this.rating = rating;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
   /**
    * the reviewed {@link Document}
    * 

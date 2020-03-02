@@ -129,4 +129,28 @@ public class Document {
   public int getAgeAt(Date today) {
     return this.releaseDate.getAgeInDaysAt(today);
   }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
+  public void setSummary(String summary) {
+    this.summary = summary;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+  public void setReleaseDate(Date releaseDate) {
+    this.releaseDate = releaseDate;
+  }
+
+  public void setAuthor(Author author) {
+    this.author = author;
+  }
 }

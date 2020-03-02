@@ -140,4 +140,24 @@ public class Author {
   public int getAgeAt(Date today) {
     return this.birthday.getAgeInYearsAt(today);
   }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public void setBirthday(Date birthday) {
+    this.birthday = birthday;
+  }
+
+  public void setResidence(String residence) {
+    this.residence = residence;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
 }
