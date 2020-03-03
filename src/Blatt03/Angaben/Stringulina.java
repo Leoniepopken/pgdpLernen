@@ -55,8 +55,9 @@ public class Stringulina {
     }
 
     public static boolean matches(String str, String pattern){
+        int t = 0;
 
-        while(int t < pattern.length()){
+        while(t < pattern.length()){
             int vielfachheitLänge = 0;
             int vielfachheit = 0;
             int zählerP = 0; //(Zähler für das Pattern)
@@ -96,7 +97,7 @@ public class Stringulina {
                             return false;
                         }
                     }
-                    zählerP = zählerP + 2 +
+                    zählerP = zählerP + 2;
                 }
             }
              t++;
