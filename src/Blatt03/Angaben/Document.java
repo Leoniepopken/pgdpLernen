@@ -8,7 +8,7 @@ public class Document {
     private String content;
     private Date releaseDate;
     private Author author;
-    public static final String[] SUFFICES = new String[]{"ie", "ab", "al", "ant", "artig", "bar", "chen", "ei", "eln", "en", "end", "ent", "er", "fach", "fikation", "fizieren", "fähig",
+    public static final String[] SUFFICES = new String[]{"ab", "al", "ant", "artig", "bar", "chen", "ei", "eln", "en", "end", "ent", "er", "fach", "fikation", "fizieren", "fähig",
             "gemäß", "gerecht", "haft", "haltig", "heit", "ie", "ieren", "ig", "in", "ion", "iren", "isch", "isieren", "isierung",
             "ismus", "ist", "ität", "iv", "keit", "kunde", "legen", "lein", "lich", "ling", "logie", "los", "mal", "meter", "mut",
             "nis", "or", "sam", "schaft", "tum", "ung", "voll", "wert", "würdig"};
@@ -128,14 +128,12 @@ public class Document {
         for (int i = 0; i < SUFFICES.length; i++) {
             if (sufficesEqual(word, SUFFICES[i], SUFFICES[i].length())) {
                 return SUFFICES[i];
-            } else {
-                return " ";
             }
         }
         return " ";
     }
 
-    private static String cutSuffix(String word, String suffix) {
+    public static String cutSuffix(String word, String suffix) {
         if (findSuffix(word).equals(" ")) {
             return word;
         } else {
@@ -153,6 +151,7 @@ public class Document {
     }
 
     public static void main(String[] args) {
+        String newWord = cutSuffix("leonie", "ie");
         Date releaseDate = new Date(20, 9, 2006);
         Date geburtstag = new Date(20, 10, 2000);
         Author leonie = new Author("Leonie", "Popken", geburtstag, "München", "leonie.popken");
