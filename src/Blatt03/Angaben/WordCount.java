@@ -4,30 +4,38 @@ public class WordCount {
     private String word;
     private int frequency;
 
-    public WordCount (String Wort, int häufigkeit){
+    @Override
+    public String toString() {
+        return word + " - " + frequency;
+    }
+
+    public WordCount(String Wort, int häufigkeit) {
         this.word = Wort;
         this.frequency = häufigkeit;
     }
 
-    public String getWord (){
+    public String getWord() {
         return word;
     }
-    public int getFrequency(){
+
+    public int getFrequency() {
         return frequency;
     }
-    public void setFrequency(int frequency){
+
+    public void setFrequency(int frequency) {
         this.frequency = frequency;
     }
-    public int incrementCount(){
+
+    public int incrementCount() {
         frequency += 1;
         return frequency;
     }
-    public int incrementCount(int n){
-        if (n > 0){
+
+    public int incrementCount(int n) {
+        if (n > 0) {
             frequency = frequency + n;
             return frequency;
-        }
-        else {
+        } else {
             return frequency;
         }
     }

@@ -121,7 +121,7 @@ public class Author {
    * @return the contact information of the author
    */
   public String getContactInformation() {
-    return this.firstName + " " + this.lastName + Terminal.NEWLINE + "<" + this.email + ">" + Terminal.NEWLINE
+    return this.firstName + " " + this.lastName + "Terminal.NEWLINE" + "<" + this.email + ">" + "Terminal.NEWLINE"
         + this.residence;
 
 //		return "<" + this.email + ">"+ Terminal.NEWLINE

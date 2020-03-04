@@ -25,9 +25,9 @@ public class Date {
    * Constructs a date that represents the current date.
    */
   public Date() {
-    this.day = Terminal.TODAYS_DAY;
-    this.month = Terminal.TODAYS_MONTH;
-    this.year = Terminal.TODAYS_YEAR;
+    //this.day = Terminal.TODAYS_DAY;
+    //this.month = Terminal.TODAYS_MONTH;
+    //this.year = Terminal.TODAYS_YEAR;
   }
 
   /**
