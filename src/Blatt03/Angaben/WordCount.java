@@ -39,4 +39,12 @@ public class WordCount {
             return frequency;
         }
     }
+
+    public boolean equals(WordCount wc){
+        if (wc == null) {return false;};
+        if(this.getWord().equals(wc.word) && this.getFrequency() == wc.getFrequency()){
+            return true;
+        }
+        return false;
+    }
 }

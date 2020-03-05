@@ -150,6 +150,16 @@ public class Document {
         }
     }
 
+    public boolean equals (Document doc){
+        if(doc == null){return false;}
+        if (this.getTitle().equals(doc.getTitle()) && this.getLanguage().equals(doc.getLanguage())
+                && this.getSummary().equals(doc.getSummary()) && this.getReleaseDate().equals(doc.getReleaseDate())
+                && this.getContent().equals(doc.getContent()) && this.getAuthor().equals(doc.getAuthor())){
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         String newWord = cutSuffix("leonie", "ie");
         Date releaseDate = new Date(20, 9, 2006);

@@ -60,4 +60,15 @@ public class WordCountsArray {
         }
         return out;
     }
+
+    public boolean equals (WordCountsArray [] wca){
+        if (wca == null) {return false;}
+        if(this.wordCountArray.length != wca.length){return false;}
+        for (int i = 0; i < wca.length; i++){
+            if(!wordCountArray[i].equals(wca[i])){
+                return false;
+            }
+        }
+        return true;
+    }
 }
