@@ -71,7 +71,7 @@ public class MatrixVektorOperations {
         }
         double result = Math.sqrt(unterDerWurzel);
         return result;
-        //so weit sind wir auseinader!!!
+        //so weit sind wir auseinader!!!!
     }
 
     public static void main (String [] args){
