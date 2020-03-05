@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class MatrixVektorOperations {
+public class MatrixVectorOperations {
 
     public static double[] multiply (double[][] matrix, double[] vektor){
         double [] result = new double[vektor.length];
