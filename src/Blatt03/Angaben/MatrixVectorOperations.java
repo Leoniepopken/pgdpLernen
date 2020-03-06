@@ -74,6 +74,41 @@ public class MatrixVectorOperations {
         //so weit sind wir auseinader!!!!
     }
 
+    //Hilfsmethode
+    public static int faculty(int n) {
+        int result = 1;
+        if(n == 0){
+            result = 1;
+        }else if(n > 0){
+            for(int i = 1; i <= n; i++){
+                result = result*i;
+            }
+        }else{
+            n = n*-1;
+            for(int i = 1; i <= n; i++){
+                result = result*i;
+            }
+        }
+        return result;
+    }
+
+    public static int [][] permutations(int n){
+        int [] row = new int [n - 1];
+        int permutationen = faculty(n); //Anzahl der Permutationen
+        int [][] result = new int [permutationen][];
+        return result;
+    }
+
+    public static int sgn (int [] permutation){
+        return 1;
+    }
+
+    public static int determinant (int [][] A){
+        return 1;
+    }
+
+
+
     public static void main (String [] args){
         double [][] matrix = {{1, 3, 4},{3, 2, 5},{5, 1, 7}};
         double [] vektor = {2, 5, 6};

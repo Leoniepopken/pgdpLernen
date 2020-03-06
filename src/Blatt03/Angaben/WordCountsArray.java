@@ -8,16 +8,24 @@ public class WordCountsArray {
     }
 
     public void add (String word, int count){
-        if(i == wordCountArray.length){
-            WordCount [] newArray = new WordCount[i + 1];
-            for (int j = 0; j < i; j++){
-                newArray[j] = wordCountArray[j];
+        if (wordCountArray != null) {
+            for (int j = 0; j < wordCountArray.length; j++) {
+                if (wordCountArray[j].getWord().equals(word)) {
+                    wordCountArray[j].setFrequency(wordCountArray[j].getFrequency() + count);
+                } else {
+                    if (j == wordCountArray.length) {
+                        WordCount[] newArray = new WordCount[j + 1];
+                        for (int k = 0; k < k; k++) {
+                            newArray[k] = wordCountArray[k];
+                        }
+                        wordCountArray = newArray;
+                    }
+                    WordCount wort = new WordCount(word, count);
+                    wordCountArray[j] = wort;
+                    j++;
+                }
             }
-            wordCountArray = newArray;
         }
-        WordCount wort = new WordCount(word, count);
-        wordCountArray [i] = wort;
-        i++;
     }
 
     public int size(){
@@ -26,7 +34,7 @@ public class WordCountsArray {
 
     public String getWord(int index){
         if (index < 0 || index > i){
-            return "";
+            return null;
         }
         return wordCountArray[index].getWord();
     }
@@ -46,13 +54,6 @@ public class WordCountsArray {
         }
     }
 
-    public static void main (String [] puh){
-        WordCountsArray array = new WordCountsArray(1);
-        array.add("Joscha", 3);
-        array.add("Leonie", 10);
-        System.out.println(array.getCount(1));
-    }
-
     public String toString (){
         String out = "";
         for (int j = 0; j < i; j++){
@@ -70,5 +71,71 @@ public class WordCountsArray {
             }
         }
         return true;
+    }
+
+    public int getIndexOfWord(String word){
+        for (int i = 0; i < wordCountArray.length; i++){
+            if(wordCountArray[i].equals(word)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean wordsEqual (WordCountsArray wca){
+        for (int i = 0; i < this.wordCountArray.length; i++){
+            if (this.wordCountArray[i].getWord().equals(wca.wordCountArray[i].getWord())){
+                return true; //wenn alle Wörter an der Stelle i geleich sind ist die Reihenfolge trivialerweise auch richtig
+            }
+            else {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    private double scalarProduct (WordCountsArray wca){
+        double result = 0;
+        if (!this.wordsEqual(wca)){
+            return 0;
+        }
+        else {
+           for (int i = 0; i < wca.wordCountArray.length; i++){
+               int zwischenergebnis = this.wordCountArray[i].getFrequency()*wca.wordCountArray[i].getFrequency();
+               result += zwischenergebnis;
+           }
+        }
+        return result;
+    }
+
+    public void sort(){
+        //ich nehme mir am Anfang irgendein Wort in dem Array, mit dem ich vergleiche
+        String aktuellesKleinstes = wordCountArray[2].getWord();
+        WordCountsArray [] newArray = new WordCountsArray[wordCountArray.length];
+        int index = 0;
+        int grenze;
+
+        for (int j = 0; j < newArray.length; j++) {
+            for (int i = 0; i < wordCountArray.length; i++) {
+                if (wordCountArray[i].getWord().compareTo(aktuellesKleinstes) < 0) {
+                    aktuellesKleinstes = wordCountArray[i].getWord();
+
+                }
+            }
+            newArray [j] = null;
+        }
+    }
+
+    public static void main (String [] puh){
+        WordCountsArray array = new WordCountsArray(1);
+        array.add("Joscha", 3);
+        array.add("Leonie", 10);
+        System.out.println(array.getCount(1));
+        String a = "a";
+        String b = "b";
+        String c = "b";
+        System.out.println(a.compareTo(b)); //-1
+        System.out.println(b.compareTo(a)); //1
+        System.out.println(b.compareTo(c)); //0
     }
 }
