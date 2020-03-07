@@ -75,7 +75,7 @@ public class WordCountsArray {
 
     public int getIndexOfWord(String word){
         for (int i = 0; i < wordCountArray.length; i++){
-            if(wordCountArray[i].equals(word)){
+            if(wordCountArray[i].getWord().equals(word)){
                 return i;
             }
         }
@@ -109,21 +109,21 @@ public class WordCountsArray {
     }
 
     public void sort(){
-        //ich nehme mir am Anfang irgendein Wort in dem Array, mit dem ich vergleiche
-        String aktuellesKleinstes = wordCountArray[2].getWord();
-        WordCountsArray [] newArray = new WordCountsArray[wordCountArray.length];
-        int index = 0;
-        int grenze;
-
-        for (int j = 0; j < newArray.length; j++) {
-            for (int i = 0; i < wordCountArray.length; i++) {
-                if (wordCountArray[i].getWord().compareTo(aktuellesKleinstes) < 0) {
-                    aktuellesKleinstes = wordCountArray[i].getWord();
-
+        for (int i = 0; i < wordCountArray.length; i++){
+            for (int j = i + 1; j < wordCountArray.length; j++){
+                if (wordCountArray[j].getWord().compareTo(wordCountArray[i].getWord()) < 0){
+                    WordCount speicher = wordCountArray[i];
+                    wordCountArray[i] = wordCountArray[j];
+                    wordCountArray[j] = speicher;
                 }
             }
-            newArray [j] = null;
         }
+    }
+
+    public double computeSimilarity (WordCountsArray wca){
+        wca.sort();
+        this.sort();
+        return scalarProduct(wca) / Math.sqrt(scalarProduct(wca) * scalarProduct(this));
     }
 
     public static void main (String [] puh){
