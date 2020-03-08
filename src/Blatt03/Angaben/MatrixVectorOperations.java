@@ -59,6 +59,11 @@ public class MatrixVectorOperations {
         return result;
     }
 
+    /**
+     * @param joscha joschas standort
+     * @param leonie leonies standort
+     * @return
+     */
     public static double euclideanDistance (double [] joscha, double [] leonie){
         double [] differenzDerOrte = new double[joscha.length];
         for (int i = 0; i < joscha.length; i++){
