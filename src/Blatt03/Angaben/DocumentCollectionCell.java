@@ -3,6 +3,7 @@ public class DocumentCollectionCell {
     public DocumentCollectionCell next; //nächstes Element
     public DocumentCollectionCell prev; //vorheriges Element
     private Document info;
+    public double similarity;
 
     public DocumentCollectionCell(Document info) {
         next = null;

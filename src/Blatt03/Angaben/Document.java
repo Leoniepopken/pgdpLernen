@@ -24,6 +24,10 @@ public class Document {
         addContent(content);
     }
 
+    public Document (String fliesstext){
+        this.content = fliesstext;
+    }
+
     public WordCountsArray getWordCounts() {
         return wordCounts;
     }
@@ -142,7 +146,7 @@ public class Document {
         }
     }
 
-    private void addContent(String content) {
+    public void addContent(String content) {
         String[] tokens = tokenize(content);
         for (int i = 0; i < tokens.length; i++) {
             String resultierendesWort = cutSuffix(tokens[i], findSuffix(tokens[i]));
