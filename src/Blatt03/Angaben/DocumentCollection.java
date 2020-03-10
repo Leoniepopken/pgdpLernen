@@ -13,12 +13,12 @@ public class DocumentCollection {
             return;
         }
         DocumentCollectionCell newDoc = new DocumentCollectionCell(doc);
-        if (head == null){
+        if (isEmpty()){
             head = newDoc;
             tail = newDoc;
         } else {
-            head.prev = newDoc;
-            newDoc.next = head;
+            head.setPrev(newDoc);
+            newDoc.setNext(head);
             head = newDoc;
         }
     }
@@ -28,45 +28,42 @@ public class DocumentCollection {
             return;
         }
         DocumentCollectionCell newDoc = new DocumentCollectionCell(doc);
-        if (head == null){
+        if (isEmpty()){
             head = newDoc;
             tail = newDoc;
         } else {
-            tail.next = newDoc;
-            newDoc.prev = tail;
+            tail.setNext(newDoc);
+            newDoc.setPrev(tail);
             tail = newDoc;
         }
     }
 
     public boolean isEmpty(){
-        if(head == null && tail == null){
-            return true;
-        }
-        return false;
+        return head == null && tail == null;
     }
 
     public int numDocuments(){
         DocumentCollectionCell current = head;
         int anzahl = 0;
         while (current!= null){
-            current = current.next;
+            current = current.getNext();
             anzahl++;
         }
         return anzahl;
     }
 
     public Document getFirstDocument(){
-        if (head != null) {
-            return head.getInfo();
+        if (isEmpty()) {
+            return null;
         }
-        return null;
+        return head.getInfo();
     }
 
     public Document getLastDocument(){
-        if (tail != null) {
-            return tail.getInfo();
+        if (isEmpty()) {
+            return null;
         }
-        return null;
+        return tail.getInfo();
     }
 
     public void removeFirstDocument(){
@@ -75,19 +72,20 @@ public class DocumentCollection {
             return;
         }
         //zweiter Fall: Liste enthält genau ein Element
-        if(head == tail){
+        if(numDocuments() == 1){
             head = null;
             tail = null;
         }
         //dritter Fall: Liste enthält genau zwei Elemente
         assert head != null;
-        if (head.next == tail){
+        if (head.getNext() == tail){
             head = tail;
+            head.setPrev(null);
         }
         //vierter Fall: Liste entält mindestens drei Elemente
-        if (!isEmpty() && head != tail && head.next != tail){
-            head = head.next;
-            head.prev = null;
+        if (!isEmpty() && head != tail && head.getNext() != tail){ //eigentlich ja unnötig, das alles zu überprüfen, oder?
+            head = head.getNext();
+            head.setPrev(null);
         }
     }
 
@@ -97,51 +95,47 @@ public class DocumentCollection {
             return;
         }
         //zweiter Fall: Liste enthält genau ein Element
-        if(head == tail){
+        if(numDocuments() == 1){
             head = null;
             tail = null;
         }
         //dritter Fall: Liste enthält genau zwei Elemente
         assert head != null;
-        if (head.next == tail){
+        if (head.getNext() == tail){
             head = tail;
         }
         //vierter Fall: Liste entält mindestens drei Elemente
-        if (!isEmpty() && head != tail && head.next != tail){
-            tail = tail.prev;
-            tail.next = null;
+        if (!isEmpty() && head != tail && head.getNext() != tail){
+            tail = tail.getPrev();
+            tail.setNext(null);
         }
     }
 
     public boolean remove (int index){
         DocumentCollectionCell temp = head;
-        //Index kann nicht größer als die Liste sein!
         if(index >= numDocuments()){
             return false;
         }
+        if(index < 0){
+            return false;
+        }
         if (index == 0){
-            head = head.next;
-            head.prev = null;
+            removeFirstDocument();
             return true;
         }
-        if (index == numDocuments()){
-            tail = tail.prev;
-            tail.next = null;
+        if (index == numDocuments() - 1){
+            removeLastDocument();
             return true;
         }
-        else {
-        int i = 0; //Zählvariable durch die Liste
-        //Durch die Liste gehen, bis das vorherige Element des Elements mit dem index i gefunden wurde
+
+        int i = 0;
         while (i < index ){
-            temp = temp.next;
+            temp = temp.getNext();
             i++;
         }
-        //vor temp mit nach temp verknüpfen
-        temp.prev.next = temp.next;
-        //temp löschen
-        temp.next.prev = null;
+        temp.getPrev().setNext(temp.getNext());
+        temp = null;
         return true;
-        }
     }
 
     public Document get (int index){
@@ -150,7 +144,7 @@ public class DocumentCollection {
         }
         DocumentCollectionCell temp = head;
         for (int i = 0; i < index; i++){
-            temp = temp.next;
+            temp = temp.getNext();
         }
         return  temp.getInfo();
     }
@@ -162,7 +156,7 @@ public class DocumentCollection {
             int index = 0;
             DocumentCollectionCell temp = head;
             while (!temp.getInfo().equals(doc)) {
-                temp = temp.next;
+                temp = temp.getNext();
                 index++;
             }
             return index;
@@ -172,7 +166,7 @@ public class DocumentCollection {
     public boolean contains(Document doc) {
         DocumentCollectionCell temp = head;
         for (int i = 0; i < numDocuments(); i++){
-            temp = temp.next;
+            temp = temp.getNext();
             if (temp.getInfo().equals(doc)){
                 return true;
             }
@@ -186,7 +180,7 @@ public class DocumentCollection {
         WordCountsArray wca = new WordCountsArray(0);
         //alle Dokumente durchgehen
         for (int i = 0; i < numDocuments(); i++){
-            //Im Dokument alle Wörte durchgehne und dem array hinzufügen
+            //Im Dokument alle Wörte durchgehen und dem array hinzufügen
             for (int j = 0; j < get(i).wordCounts.size(); j++) {
                 wca.add(get(i).wordCounts.getWord(j), get(i).wordCounts.getCount(j));
             }
@@ -219,7 +213,7 @@ public class DocumentCollection {
             double similarity = get(i).wordCounts.computeSimilarity(doc.wordCounts);
             //Teilaufgabe 4
             temp.similarity = similarity;
-            temp = temp.next;
+            temp = temp.getNext();
         }
         //Teilaufgabe 5
         removeLastDocument();
@@ -229,7 +223,7 @@ public class DocumentCollection {
         DocumentCollectionCell temp = head;
         int i = 0;
         while (i < index){
-            temp = temp.next;
+            temp = temp.getNext();
             i++;
         }
         return temp.similarity;
