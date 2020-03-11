@@ -25,7 +25,8 @@ public class Document {
     }
 
     public Document (String fliesstext){
-        this.content = fliesstext;
+        wordCounts = new WordCountsArray(1);
+        addContent(fliesstext);
     }
 
     public WordCountsArray getWordCounts() {

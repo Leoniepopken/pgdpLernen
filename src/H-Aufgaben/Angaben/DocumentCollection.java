@@ -75,18 +75,18 @@ public class DocumentCollection {
         if(numDocuments() == 1){
             head = null;
             tail = null;
+            return;
         }
         //dritter Fall: Liste enthält genau zwei Elemente
         assert head != null;
         if (head.getNext() == tail){
             head = tail;
             head.setPrev(null);
+            return;
         }
         //vierter Fall: Liste entält mindestens drei Elemente
-        if (!isEmpty() && head != tail && head.getNext() != tail){ //eigentlich ja unnötig, das alles zu überprüfen, oder?
             head = head.getNext();
             head.setPrev(null);
-        }
     }
 
     public void removeLastDocument(){
@@ -134,7 +134,7 @@ public class DocumentCollection {
             i++;
         }
         temp.getPrev().setNext(temp.getNext());
-        temp = null;
+        temp.getNext().setPrev(temp.getPrev());
         return true;
     }
 
@@ -174,33 +174,30 @@ public class DocumentCollection {
         return false;
     }
 
-    //Sind alle folgenden Methoden in dieser Klasse richtig? Oder gehören sie wo anders hin?
-
     private WordCountsArray allWords(){
         WordCountsArray wca = new WordCountsArray(0);
         //alle Dokumente durchgehen
         for (int i = 0; i < numDocuments(); i++){
             //Im Dokument alle Wörte durchgehen und dem array hinzufügen
             for (int j = 0; j < get(i).wordCounts.size(); j++) {
-                wca.add(get(i).wordCounts.getWord(j), get(i).wordCounts.getCount(j));
+                wca.add(get(i).getWordCounts().getWord(j), get(i).wordCounts.getCount(j));
             }
         }
         return wca;
     }
 
     private void addZeroWordsToDocuments(){
+        WordCountsArray allWords = allWords();
         for (int i = 0; i < numDocuments(); i++){
-            for (int j = 0; j < allWords().size(); j++) {
-                if (allWords().getCount(j) == 0) {
-                    get(i).addContent(allWords().getWord(j));
-                }
+            for (int j = 0; j < allWords.size(); j++) {
+                get(i).getWordCounts().add(allWords.getWord(j), 0);
             }
         }
     }
 
     private void match(String searchQuery){
         //Teilaufgabe 1
-        Document doc = new Document(searchQuery); //ich habe hier in Document einen zweiten Konstruktor geschrieben. Passt?
+        Document doc = new Document(searchQuery);
         appendDocument(doc);
         //Teilaufgabe 2
         addZeroWordsToDocuments();
@@ -212,7 +209,7 @@ public class DocumentCollection {
         for (int i = 0; i < numDocuments(); i++) {
             double similarity = get(i).wordCounts.computeSimilarity(doc.wordCounts);
             //Teilaufgabe 4
-            temp.similarity = similarity;
+            temp.setSimilarity(similarity);
             temp = temp.getNext();
         }
         //Teilaufgabe 5
@@ -226,10 +223,67 @@ public class DocumentCollection {
             temp = temp.getNext();
             i++;
         }
-        return temp.similarity;
+        return temp.getSimilarity();
     }
 
     public void sortBySimilarityDesc(){
-
+        DocumentCollectionCell [] array = new DocumentCollectionCell[numDocuments()];
+        DocumentCollectionCell temp = head;
+        for (int i = 0; i < numDocuments(); i++) {
+            array[i] = temp;
+            temp = temp.getNext();
+        }
+        mergeSortIt(array);
+        head = null;
+        tail = null;
+        head = array[0];
+        DocumentCollectionCell tem = head;
+        for (int i = 1; i < array.length; i++) {
+            tem.setNext(array[i]);
+            tem.getNext().setPrev(tem);
+            tem = tem.getNext();
+        }
     }
+
+
+
+    private static DocumentCollectionCell[] merge(DocumentCollectionCell[] a, DocumentCollectionCell[] b) {
+        DocumentCollectionCell[] merged = new DocumentCollectionCell[a.length + b.length];
+        int aIndex = 0;
+        int bIndex = 0;
+        for (int i = 0; i < merged.length; i++) {
+            if (aIndex >= a.length)
+                merged[i] = b[bIndex++];
+            else if (bIndex >= b.length)
+                merged[i] = a[aIndex++];
+            else if (a[aIndex].getSimilarity() > b[bIndex].getSimilarity())
+                merged[i] = a[aIndex++];
+            else
+                merged[i] = b[bIndex++];
+        }
+        return merged;
+    }
+
+    private static DocumentCollectionCell[] mergeSortIt(DocumentCollectionCell[] a) {
+        // Wir teilen zunächst das Array in a.length viele 1-elementige Arrays auf
+        DocumentCollectionCell[][] parts = new DocumentCollectionCell[a.length][];
+        for (int i = 0; i < a.length; i++)
+            parts[i] = new DocumentCollectionCell[] { a[i] };
+        // Wir mergen wiederholt je zwei benachbarte Arrays, bis nur mehr ein Teil-Array
+        // über bleibt.
+        while (parts.length > 1) {
+            DocumentCollectionCell[][] partsNew = new DocumentCollectionCell[(parts.length + 1) / 2][];
+            for (int i = 0; i < partsNew.length; i++) {
+                if (2 * i + 1 < parts.length)
+                    partsNew[i] = merge(parts[2 * i], parts[2 * i + 1]);
+                else
+                    // Ist die Länge nicht durch zwei teilbar, übernehmen wir den letzten Teil-Array
+                    // einfach
+                    partsNew[i] = parts[2 * i];
+            }
+            parts = partsNew;
+        }
+        return parts[0];
+    }
+
 }
