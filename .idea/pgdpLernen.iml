@@ -13,6 +13,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/Blatt06" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/P-Aufgaben" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Blatt07" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
