@@ -1,12 +1,8 @@
+import java.util.Arrays;
+
 public class LinkedDocument extends Document{
 
     private final String ID;
-    private String title;
-    private String language;
-    private String summary;
-    private String content;
-    private Date releaseDate;
-    private Author author;
     private String[] links;
     LinkedDocumentCollection outgoingLinks;
     LinkedDocumentCollection ingoingLinks;
@@ -14,9 +10,8 @@ public class LinkedDocument extends Document{
     public LinkedDocument(String title, String language, String summary, Date releaseDate, Author author,
                           String content, String ID) {
         super(title, language, summary, releaseDate, author, content);
+        setLinkCountZero();
         this.ID = ID;
-        wordCounts = new WordCountsArray(1);
-        addContent(content);
         this.links = findOutgoingIDs(content);
     }
 
@@ -27,11 +22,7 @@ public class LinkedDocument extends Document{
 
     @Override
     public boolean equals(Document doc){
-        if (doc instanceof LinkedDocument && ((LinkedDocument) doc).getID().equals(this.getID())){
-            return true;
-        } else {
-            return false;
-        }
+        return doc instanceof LinkedDocument && ((LinkedDocument) doc).getID().equals(this.getID());
     }
 
     private String [] findOutgoingIDs(String text){
@@ -45,14 +36,15 @@ public class LinkedDocument extends Document{
         String [] array = new String[countDoppelPunkte];
         int index = 0;
         for (int i = 0; i < text.length(); i++) {
-            if(text.charAt(i) == ':' && text.substring(i-4, i-1).equals("link")){
+            if(text.charAt(i) == ':' && text.substring(i-4, i).equals("link")){
                 String element = "";
                 int j = i + 1;
                 while (text.charAt(j) != ' '){
                     element += text.charAt(j);
                     j++;
                 }
-                array[i] = element;
+                array[index] = element;
+                index++;
             }
         }
         return array;
@@ -67,14 +59,14 @@ public class LinkedDocument extends Document{
     }
 
     public void addIncomingLink(LinkedDocument incomingLink){
-        if (!incomingLink.equals(this.getID())) {
+        if (!incomingLink.getID().equals(this.getID())) {
             ingoingLinks.appendDocument(incomingLink);
         }
     }
 
     public static LinkedDocument createLinkedDocumentFromFile(String fileName){
         String [] array = Terminal.readFile(fileName);
-        if (array.length > 2){
+        if (array.length != 2){
             return null;
         } else {
             LinkedDocument doc = new LinkedDocument(array[0], "", "",
@@ -86,10 +78,9 @@ public class LinkedDocument extends Document{
     }
 
     private void createOutgoingDocumentCollection(){
-        String [] array = findOutgoingIDs(this.getContent());
-        for (int i = 0; i < array.length; i++){
-            if (!array[i].equals(this.getID())) {
-                LinkedDocument doc = createLinkedDocumentFromFile(array[i]);
+        for (int i = 0; i < links.length; i++){
+            if (!links[i].equals(this.getID())) {
+                LinkedDocument doc = createLinkedDocumentFromFile(links[i]);
                 outgoingLinks.appendDocument(doc);
             }
         }
@@ -107,5 +98,11 @@ public class LinkedDocument extends Document{
 
     public LinkedDocumentCollection getIncomingLinks(){
         return ingoingLinks;
+    }
+
+    public static void main(String[] args) {
+        LinkedDocument doc = new LinkedDocument("Pgdp", null, null, null, null,
+                "zahlen von link:eins bis link:zwei sind langweilig", "numbers");
+        System.out.println(Arrays.toString(doc.links));
     }
 }

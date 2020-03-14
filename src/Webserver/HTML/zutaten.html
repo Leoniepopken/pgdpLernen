@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .body {
+            display: -ms-flexbox;
+            display: -webkit-box;
+            display: flex;
+            -ms-flex-align: center;
+            -ms-flex-pack: center;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+            background-color: #fff;
+        }
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+        .form-signin .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Zutaten auswählen</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body class="body">
+
+<form action = "ergebnis" class="form-signin shadow p-3 mb-5 bg-white rounded">
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="Bananen" name="Bananen"><label class="form-check-label" for="Bananen">Bananen</label> <br>
+                <input class="form-check-input" type="checkbox" id="Reis" name="Reis"><label class="form-check-label" for="Reis">Reis</label> <br>
+                <input class="form-check-input" type="checkbox" id="Ei" name="Ei"><label class="form-check-label" for="Ei">Ei</label> <br>
+                <input class="form-check-input" type="checkbox" id="Öl" name="Öl"><label class="form-check-label" for="Öl">Öl</label> <br>
+                <input class="form-check-input" type="checkbox" id="Bacon" name="Bacon"><label class="form-check-label" for="Bacon">Bacon</label> <br>
+                <input class="form-check-input" type="checkbox" id="Protein" name="Protein"><label class="form-check-label" for="Protein">Protein</label> <br>
+                <input class="form-check-input" type="checkbox" id="Haferflocken" name="Haferflocken"><labelclass="form-check-label" for="Haferflocken">Haferflocken</label> <br>
+                <input class="form-check-input" type="checkbox" id="Milch" name="Milch"><label class="form-check-label" for="Milch">Milch</label> <br>
+            </div>
+        </div>
+    </div>
+
+    <input type="submit">
+</form>
+
+</body>
+</html>

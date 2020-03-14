@@ -1,7 +1,3 @@
-import org.junit.*;
-
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class Stringulina {
 
@@ -127,23 +123,5 @@ public class Stringulina {
         System.out.println(a.matcht("Pijnguin", "P.{3}ngui{15}."));
     }
     Stringulina a;
-    @Before
-    public void setup (){
-        a = new Stringulina();
-    }
 
-    @Test
-    public void testPingu (){
-        assertFalse(a.matcht("Pijnguin", "P.{3}ngui{15}."));
-    }
-
-    @Test
-    public void test (){
-        assertTrue(a.matcht("Pijnguin", "P.{2}ngui{1}."));
-    }
-
-    @Test(expected = java.lang.NullPointerException.class)
-    public void fehlerTest (){
-        a.matcht(null, "jnfrnfh");
-    }
 }

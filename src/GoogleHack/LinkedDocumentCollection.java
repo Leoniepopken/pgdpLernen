@@ -2,34 +2,18 @@ public class LinkedDocumentCollection extends DocumentCollection{
 
     @Override
     public void prependDocument(Document doc){
-        if (doc == null || !(doc instanceof LinkedDocument)){
+        if (!(doc instanceof LinkedDocument) || contains(doc)){
             return;
         }
-        DocumentCollectionCell newDoc = new DocumentCollectionCell(doc);
-        if (isEmpty()){
-            head = newDoc;
-            tail = newDoc;
-        } else {
-            head.setPrev(newDoc);
-            newDoc.setNext(head);
-            head = newDoc;
-        }
+        super.prependDocument(doc);
     }
 
     @Override
     public void appendDocument(Document doc){
-        if (doc == null || !(doc instanceof LinkedDocument)) {
+        if (!(doc instanceof LinkedDocument) || contains(doc)) {
             return;
         }
-        DocumentCollectionCell newDoc = new DocumentCollectionCell(doc);
-        if (isEmpty()){
-            head = newDoc;
-            tail = newDoc;
-        } else {
-            tail.setNext(newDoc);
-            newDoc.setPrev(tail);
-            tail = newDoc;
-        }
+        super.appendDocument(doc);
     }
 
     public void calculateIncomingLinks(){
