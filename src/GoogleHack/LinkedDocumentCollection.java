@@ -16,17 +16,29 @@ public class LinkedDocumentCollection extends DocumentCollection{
         super.appendDocument(doc);
     }
 
+
     public void calculateIncomingLinks(){
         for (int i = 0; i < this.numDocuments(); i++) {
-            //TO-DO
+            LinkedDocument out = (LinkedDocument) get(i);
+            for (int j = 0; j < this.numDocuments() ; j++) {
+                LinkedDocument incomingDoc = (LinkedDocument) this.get(j);
+                if (incomingDoc.getOutgoingLinks().contains(out)){
+                    out.addIncomingLink(incomingDoc);
+                }
+            }
         }
     }
 
-    //public LinkedDocumentCollection crawl(){
-
-    //}
+    public LinkedDocumentCollection crawl(){
+       LinkedDocumentCollection resultCollection = new LinkedDocumentCollection();
+       crawl(resultCollection);
+       return resultCollection;
+    }
 
     private void crawl(LinkedDocumentCollection resultCollection){
+        for (int i = 0; i < this.numDocuments(); i++) {
+            resultCollection.appendDocument(get(i));
+        }
 
     }
 }

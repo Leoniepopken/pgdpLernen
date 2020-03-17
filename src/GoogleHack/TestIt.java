@@ -2,6 +2,7 @@ public class TestIt {
     public static void main (String [] args) {
 
         DocumentCollection dc = new DocumentCollection();
+        LinkedDocumentCollection ldc = new LinkedDocumentCollection();
 
         while (true) {
 
@@ -23,6 +24,16 @@ public class TestIt {
                 dc.appendDocument(doc);
             }
 
+            if(s.startsWith("addLinked")){
+                String fliesstext = s.substring(s.indexOf(':') + 1);
+                String titel = s.substring(3, s.indexOf(':'));
+                LinkedDocument doc = new LinkedDocument(titel, "", "",
+                        new Date(1, 1, 1),
+                        new Author("", "", new Date(1, 1, 1), "", ""),
+                        fliesstext, "");
+                ldc.appendDocument(doc);
+            }
+
             if (s.equals("list")) {
                 String output = "";
                 for (int i = 0; i < dc.numDocuments(); i++) {
@@ -42,6 +53,10 @@ public class TestIt {
                         System.out.println(title + " " + dc.get(i).getWordCounts().getCount(index));
                     }
                 }
+            }
+
+            if (s.startsWith("crawl")){
+                ldc.crawl();
             }
         }
     }

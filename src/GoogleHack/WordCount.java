@@ -3,6 +3,8 @@ public class WordCount {
 
     private String word;
     private int frequency;
+    private double normalizedWeight;
+    private double weight;
 
     @Override
     public String toString() {
@@ -24,6 +26,22 @@ public class WordCount {
 
     public void setFrequency(int frequency) {
         this.frequency = frequency;
+    }
+
+    public double getNormalizedWeight() {
+        return normalizedWeight;
+    }
+
+    public void setNormalizedWeight(double normalizedWeight) {
+        this.normalizedWeight = normalizedWeight;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public int incrementCount() {

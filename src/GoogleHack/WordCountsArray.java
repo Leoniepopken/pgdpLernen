@@ -132,6 +132,61 @@ public class WordCountsArray {
         return scalarProduct(wca) / Math.sqrt(wca.scalarProduct(wca) * scalarProduct(this));
     }
 
+    private void calculateWeights (DocumentCollection dc) {
+        if (dc == null) {
+            return;
+        }
+        for (int i = 0; i < this.size(); i++) {
+            int noOfDocsContainingWord = dc.noOfDocumentsContainingWord(this.getWord(i));
+            if (noOfDocsContainingWord != 0) {
+                double incDocFreq = Math.log((dc.numDocuments() + 1) / (double) dc.noOfDocumentsContainingWord(this.getWord(i)));
+                wordCountArray[i].setWeight(this.getCount(i) * incDocFreq);
+            } else {
+                wordCountArray[i].setWeight(0);
+            }
+        }
+
+    }
+
+    private void calculateNormalizedWeights(DocumentCollection dc) {
+        if (dc == null) {
+                return;
+        }
+        this.calculateWeights(dc);
+        double norm = 0;
+        for (int i = 0; i < this.size(); i++) {
+                norm += this.wordCountArray[i].getWeight() * this.wordCountArray[i].getWeight();
+        }
+        if (norm > 0) {
+            norm = Math.sqrt(norm);
+            for (int i = 0; i < this.size(); i++) {
+                this.wordCountArray[i].setNormalizedWeight(this.wordCountArray[i].getWeight() / norm);
+            }
+        } else {
+            for (int i = 0; i < this.size(); i++) {
+                this.wordCountArray[i].setNormalizedWeight(0);
+            }
+        }
+    }
+    
+    private double scalarProduct (WordCountsArray wca, DocumentCollection dc){
+        this.calculateWeights(dc);
+        double produkt = 0;
+        for (int i = 0; i < wordCountArray.length; i++) {
+            produkt += this.wordCountArray[i].getNormalizedWeight() * wca.wordCountArray[i].getNormalizedWeight();
+        }
+        return produkt;
+    }
+
+    public double computeSimilarity(WordCountsArray wca, DocumentCollection dc){
+        if (wca == null || dc == null){
+            return 0;
+        }
+        double skalarProdukt = 0;
+        skalarProdukt = this.scalarProduct(wca, dc);
+        return skalarProdukt;
+    }
+
     public static void main(String[] puh) {
         WordCountsArray array = new WordCountsArray(1);
         array.add("Joscha", 3);

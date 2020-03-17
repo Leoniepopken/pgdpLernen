@@ -15,6 +15,9 @@ public class LinkedDocument extends Document{
         this.links = findOutgoingIDs(content);
     }
 
+    public String[] getLinks() {
+        return links;
+    }
 
     public String getID(){
         return ID;
@@ -25,7 +28,7 @@ public class LinkedDocument extends Document{
         return doc instanceof LinkedDocument && ((LinkedDocument) doc).getID().equals(this.getID());
     }
 
-    private String [] findOutgoingIDs(String text){
+    public String [] findOutgoingIDs(String text){
         //Rausfinden, wie lang das Array überhaupt sein soll
         int countDoppelPunkte = 0;
         for (int i = 0; i < text.length(); i++) {

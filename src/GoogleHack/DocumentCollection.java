@@ -286,4 +286,18 @@ public class DocumentCollection {
         return parts[0];
     }
 
+    public int noOfDocumentsContainingWord(String word){
+        if(word == null){
+            return 0;
+        }
+        int count = 0;
+        for (int i = 0; i < numDocuments(); i++) {
+            WordCountsArray wca = this.get(i).getWordCounts();
+            if(wca.getCount(wca.getIndexOfWord(word)) >= 1){
+                count++;
+            }
+        }
+        return count;
+    }
+
 }
