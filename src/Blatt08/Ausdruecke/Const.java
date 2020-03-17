@@ -1,3 +1,5 @@
+package Ausdruecke;
+
 public class Const <T> extends Expression {
 
     public T konst;

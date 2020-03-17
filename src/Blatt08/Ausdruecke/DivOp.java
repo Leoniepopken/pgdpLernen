@@ -1,3 +1,5 @@
+package Ausdruecke;
+
 public class DivOp extends BinOp {
     @Override
     public Object evaluate() {

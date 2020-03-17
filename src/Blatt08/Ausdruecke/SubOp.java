@@ -1,3 +1,5 @@
+package Ausdruecke;
+
 public class SubOp extends BinOp {
 
     @Override

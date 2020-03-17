@@ -1,4 +1,6 @@
-public class MulOp extends BinOp {
+package Ausdruecke;
+
+public class AndOp extends BinOp {
     @Override
     public Object evaluate() {
         return null;
