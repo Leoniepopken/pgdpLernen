@@ -1,4 +1,6 @@
-public class negOp extends UnOp {
+package Ausdruecke;
+
+public class AddOp extends BinOp {
     @Override
     public Object evaluate() {
         return null;

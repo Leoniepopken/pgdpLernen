@@ -1,4 +1,6 @@
-public class AddOp extends BinOp {
+package Ausdruecke;
+
+public class OrOp extends BinOp {
     @Override
     public Object evaluate() {
         return null;
