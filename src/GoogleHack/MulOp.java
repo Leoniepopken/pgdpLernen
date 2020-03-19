@@ -1,4 +1,6 @@
-public class MulOp extends BinOp {
+public class MulOp<T> extends BinOp {
+
+
     @Override
     public Object evaluate() {
         return null;
