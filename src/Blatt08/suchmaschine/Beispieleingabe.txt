@@ -1,0 +1,5 @@
+add a.txt:link:a.txt link:e.txt
+list
+crawl
+list
+exit
