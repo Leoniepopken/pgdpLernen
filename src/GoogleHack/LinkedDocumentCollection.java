@@ -41,4 +41,8 @@ public class LinkedDocumentCollection extends DocumentCollection{
         }
 
     }
+
+    public double pageRankRec(int[][] C, int i, double d, int recDepth){
+        return 0;
+    }
 }
